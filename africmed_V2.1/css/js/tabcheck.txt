@@ -1,0 +1,14 @@
+var nameToCheck = "SomeNewTabName";
+var tabNameExists = false;
+
+$('#tabs ul li a').each(function(i) {
+    if (this.text == nameToCheck) {
+        tabNameExists = true;
+    }
+});
+
+if (!tabNameExist){
+    //code to insert new tab here
+}
+
+

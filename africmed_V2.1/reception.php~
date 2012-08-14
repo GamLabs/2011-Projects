@@ -1,0 +1,82 @@
+
+		  <form id="registration-form"  method="post" action="">
+		  	<table border="2">
+		  		<tr>
+				    <th><label>First Name</label></th>
+				     <td><input type="text" name="fname" id="fname" class="smallInput" size="15" /></td>
+				     
+				     <th><label>Last Name</label></th>
+				     <td><input type="text" name="lname" id="lname" class="smallInput" size="15" /></td>
+				     
+				     <th><label>Sex</label></th>
+				    <td> <Select name="textfield" id="textfield" class="smallInput" >
+				     	<option value="">Male</option>
+				     	<option value="">FeMale</option>
+				     </Select></td>
+				</tr>
+				<tr>
+						 <th> <label>D.O.B</label></th>
+					     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+					     
+					     <th><label>Place of Birth</label></th>
+					     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+					       <th><label>Nationality</label></th>
+					    	<td> <Select name="textfield" id="textfield" class="smallInput" >
+					     	<option value="">Gambian</option>
+					     	<option value="">Non Gambian</option>
+				     </Select></td>
+				     
+			  <tr>
+			  		 <th><label>Email</label></th>
+				     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+				     
+				     <th><label>Telephone</label></th>
+				     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+				     
+				    <th><label>Status</label></th>
+					    	<td> <Select name="textfield" id="textfield" class="smallInput" >
+					    	<option value="">Private</option>
+					     	<option value="">Company</option>
+					     	<option value="">Insurance</option>
+				     </Select></td>
+			  
+			  </tr>
+			  <tr>
+			  		<th><label>Insurance Company</label></th>
+					    	<td> <Select name="textfield" id="textfield" class="smallInput" >
+					    	<option value=""></option>
+					    	<option value="">GIA</option>
+					     	<option value="">Takaful</option>
+					     	<option value="">Great Alliance</option>
+				     </Select></td>
+			  		<th><label>Policy Number</label></th>
+				     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+			  
+			  </tr>
+			  <tr>
+			  		<th><label>Company</label></th>
+					    	<td> <Select name="textfield" id="textfield" class="smallInput" >
+					    	<option value=""></option>
+					    	<option value="">GIA</option>
+					     	<option value="">Takaful</option>
+					     	<option value="">Great Alliance</option>
+				     </Select></td>
+			  		<th><label>Company Number</label></th>
+				     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+			  
+			  </tr>
+			  <tr>
+			 		 <th><label>Address</label></th>
+				     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+			  		 <th><label>Occupation</label></th>
+				     <td><input type="text" name="textfield" id="textfield" class="smallInput" size="15" /></td>
+			  </tr>
+				    
+		       
+		       <tr>
+		           <td></td><td></td><td> <input type="submit" name="submit" class="button" Value="Register"></td>
+		          <!--   <td></td><td> <a class="button_grey"><span>Submit this form</span></a></td>-->
+		       </tr>
+		     </table>
+		  </form>
+		 

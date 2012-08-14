@@ -1,0 +1,366 @@
+<script>
+    $(document).ready(function () {
+        
+	$("#myAccordion").accordion({
+		active:false,
+		animated: "bounceslide"
+	});
+	 $("#hideTab").hide();
+	 $("#output").hide();
+	$("#submit").button();
+	$("#reset").button();
+	$("#consult").button();
+	$("#consult").click(function(){
+		$.post('check.php',{'pnumber': $("#pnumber").val()},function(data) {
+			if(data == "true"){
+			$("#hideTab").show();
+			
+			}else{
+			alert("Patient Number not found");
+			}
+		});
+		
+	
+	});
+	$("#submit").click(function(){
+		$("#output").show();
+	
+	});
+	$("#reset").click(function(){
+		$("#hideTab").hide();
+		 $("#output").hide();
+	});
+	
+	$("#checkupTab").tabs();
+	$("#lastMensDate").datepicker({dateFormat: 'yy-mm-dd'});
+	$("#checkUpDate").datepicker({dateFormat: 'yy-mm-dd'});
+	$("#followUpDate").datepicker({dateFormat: 'yy-mm-dd'});
+	
+	
+    });
+	
+		$('#checkupForm').ajaxForm({
+			target:"#content",
+			success:function(response) { 
+              		//  alert(response); 
+           		 }
+		});
+</script>
+
+<form id="checkupForm" action="checkup_controller.php" method="post">
+
+<label>Patient Number </label><input size="10" type="text" id="pnumber" name="pnumber"/>
+<label>CheckUp Date </label><input size="10" type="text" id="checkUpDate" name="checkUpdate"/> &nbsp&nbsp
+<label id="consult">Consult</label> &nbsp&nbsp&nbsp&nbsp <label id="reset">Reset All</label>
+</br> </br></br>
+<div id="hideTab">
+
+<div id="checkupTab">
+	<ul>
+   	 <li><a href="#general">General</a></li>
+   	<li><a href="#physical">Physical/Mental  Examination</a></li>
+	<li><a href="#diagnosis">Provisional Diagnosis</a></li> 
+ 	 </ul>
+
+
+<div id="checkup"> 
+<div id="general">
+<fieldset>
+<legend>General</legend>
+<table>
+<tr>
+<td><label>Last Mentrual Date </label></td><td><input type="text" size="10" id="lastMensDate" name="lastMensDate"/></br></td>
+</tr>
+<tr>
+<td><label>Hypertension </label></td><td><input type="radio" name="hypertension" value="yes" /> Yes <input type="radio" name="hypertension" value="no" /> No</br></td>
+</tr>
+<tr>
+<td><label>Diabetic </label></td><td><input type="radio" name="diabetic" value="yes" /> Yes <input type="radio" name="diabetic" value="no" /> No  </br> </td>
+</tr>
+<tr>
+<td><label>Allergy </label></td><td><input type="radio" name="allergy" value="yes" /> Yes <input type="radio" name="allergy" value="no" /> No   </br></td>
+</tr>
+
+</table>
+</fieldset>
+<fieldset>
+<legend>Complains</legend>
+<table>
+<tr>
+<td align="top"><label>Preseting Complains</label></td><td><textarea rows="4" cols="30" id="complains" name="complains">  </textarea>   </br></td>
+<td align="top"><label>History of Preseting Complains</label></td><td><textarea rows="4" cols="30" id="complainHistory" name="complainHistory">  </textarea>   </br></td>
+</tr>
+
+</table>
+</fieldset>
+
+<fieldset>
+<legend>History</legend>
+<table>
+<tr>
+<td>
+Personel History:</br>
+<table>
+      <tr>
+	<td><label>Smoking </label></td><td><input type="radio" name="smoking" value="yes" /> Yes <input type="radio" name="smoking" value="no" /> No</br></td>
+	</tr>
+	<tr>
+	<td><label>Alcohol </label></td><td><input type="radio" name="alcohol" value="yes" /> Yes <input type="radio" name="alcohol" value="no" /> No</br></td>
+	</tr>
+      
+</table></br></br>
+Family History:</br>
+<table>
+      <tr>
+		<td><label>Diabetic </label></td><td><input type="radio" name="diabetic" value="yes" /> Yes <input type="radio" name="diabetic" value="no" /> No</br></td>
+		</tr><tr>
+		<td><label>Hypertension </label></td><td><input type="radio" name="hypertension" value="yes" /> Yes <input type="radio" name="hypertension" value="no" /> No</br></td>
+		</tr><tr>
+		<td><label>Cancer </label></td><td><input type="radio" name="cancer" value="yes" /> Yes <input type="radio" name="cancer" value="no" /> No</br></td>
+		</tr><tr>
+		<td><label>Heart Problem </label></td><td><input type="radio" name="heartProblem" value="yes" /> Yes <input type="radio" name="heartProblem" value="no" /> No</br></td>
+		</tr><tr>
+		<td><label>Sickle Cell </label></td><td><input type="radio" name="sicklecell" value="yes" /> Yes <input type="radio" name="sicklecell" value="no" /> No</br></td>
+		</tr><tr>
+		<td><label>ASthma </label></td><td><input type="radio" name="asthma" value="yes" /> Yes <input type="radio" name="asthma" value="no" /> No</br></td>
+		</tr>
+      
+</table>
+
+
+</td>	
+
+</tr>
+<tr>
+<td align="top"><label>Mental Health</label></td><td><textarea rows="4" cols="30" id="mentalHealth" name="complainHistory">  </textarea>   </br></td>
+</tr>
+<tr>
+<td align="top"><label>Current medication</label></td><td><textarea rows="4" cols="30" id="currentMedication" name="currentMedication">  </textarea>   </br></td>
+</tr>
+</tr>
+</table>
+</fieldset>
+</div>
+  
+<div id="physical">
+<fieldset>
+<legend>Physical Examination</legend>
+<label>Weight </label></td><td><input size="4" type="text" name="weight"  />
+<label>Height </label></td><td><input size="4" type="text" name="height"  /></br></br>
+<fieldset>
+<legend>Temperature</legend>
+<table>
+	
+	<tr>
+	<td><label>Pallor </label></td><td><input type="text" name="pallor" /></br></td>
+	</tr><tr>
+	<td><label>Hydration </label></td><td><input type="text" name="hydration" /></br></td>
+	</tr><tr>
+	<td><label>Jaundice </label></td><td><input type="text" name="jaundice" /></br></td>
+	</tr><tr>
+	<td><label>Fnger Clubbing </label></td><td><input type="text" name="fingerClubbing" /></br></td>
+	</tr><tr>
+	<td><label>Skin Rash </label></td><td><input type="text" name="skinRash" /></br></td>
+	</tr><tr>
+	<td><label>Lymphnodes </label></td><td><input type="text" name="lymphnodes" /></br></td>
+	</tr><tr>
+	<td><label>Other </label></td><td><input type="text" name="other" /></br></td>
+	</tr>
+	
+</table>
+
+</fieldset>
+<fieldset>
+<legend>CVS</legend>
+<table>
+      <tr>
+	<td><label>BP </label></td><td><input type="text" name="bp" /></br></td>
+	</tr><tr>
+	<td><label>Pluse%</label></td><td><input type="text" name="rr" /></br></td>
+	</tr><tr>
+	<td><label>JVP </label></td><td><input type="text" name="jvp" /></br></td>
+	</tr><tr>
+	<td><label>Oedema </label></td><td><input type="text" name="oedema" /></br></td>
+	</tr>
+      
+      
+</table>
+
+</fieldset>
+<fieldset>
+<legend>Chest</legend>
+<table>
+      <tr>
+	<td><label>RR </label></td><td><input type="text" id="rr" name="rr"/></br></td>
+	</tr>
+	<tr>
+	<td><label>SP02% </label></td><td><input type="text" id="sp02" name="sp02"/></br></td>
+	</tr>
+	<tr>
+	<td><label>FEV1 </label></td><td><input type="text" id="fev1" name="fev1"/></br></td>
+	</tr>
+	<tr>
+	<td><label>Wheezing </label></td><td><input type="text" id="wheezing" name="wheezing"/></br></td>
+	</tr>
+	<tr>
+	<td><label>Crepitation </label></td><td><input type="text" id="crepitation" name="crepitation"/></br></td>
+	</tr>
+	<tr>
+	<td><label>Air Entry </label></td><td><input type="text" id="airentry" name="airentry"/></br></td>
+	</tr>
+      
+</table>
+
+</fieldset>
+<fieldset>
+<legend>Abdoment</legend>
+
+
+
+</fieldset>
+<fieldset>
+<legend>Neurology</legend>
+<table>
+	
+	<tr>
+	<td><label>Cranial Nerves </label></td><td><input type="text" name="cranialNerves" /></br></td>
+	</tr><tr>
+	<td><label>Swallowing & Speech </label></td><td><input type="text" name="swallowingSpeech" /></br></td>
+	</tr><tr>
+	<td><label>Reflexes </label></td><td><input type="text" name="reflexes" /></br></td>
+	</tr><tr>
+	<td><label>power </label></td><td><input type="text" name="power" /></br></td>
+	</tr><tr>
+	<td><label>Tones </label></td><td><input type="text" name="tones" /></br></td>
+	</tr><tr>
+	<td><label>Sensation </label></td><td><input type="text" name="sensation" /></br></td>
+	</tr><tr>
+	<td><label>Babinsky </label></td><td><input type="text" name="babinsky" /></br></td>
+	</tr>
+	
+</table>
+
+</fieldset>
+</fieldset>
+<fieldset>
+<legend>Mental Examination</legend>
+<fieldset>
+<legend>FTD</legend>
+<table>
+<tr>
+		<td><label> Paranoia </label></td><td><input type="text" name="paranoia" /></br></td>
+		</tr><tr>
+		<td><label>Delusions </label></td><td><input type="text" name="delusions" /></br></td>
+		</tr><tr>
+		<td><label>Hallucinations </label></td><td><input type="text" name="hallucinations" /></br></td>
+		</tr><tr>
+		<td><label>Cognition & memory </label></td><td><input type="text" name="cognition" /></br></td>
+		</tr><tr>
+		<td><label>Abnormal Beliefs</label></td><td><input type="text" name="abnormalBeliefs" /></br></td>
+		</tr><tr>
+		<td><label>Insights</label></td><td><input type="text" name="insights" /></br></td>
+</tr>
+</table>
+
+
+</fieldset>
+<fieldset>
+<legend>Mental Sate Examination</legend>
+<table>
+
+		<tr>
+		<td><label>A+B </label></td><td><input type="text" name="ab" /></br></td>
+		</tr><tr>
+		<td><label>Speech </label></td><td><input type="text" name="speech" /></br></td>
+		</tr><tr>
+		<td><label>Homicidal </label></td><td><input type="text" name="homicidal" /></br></td>
+		</tr><tr>
+		<td><label>Suicidal </label></td><td><input type="text" name="suicidal" /></br></td>
+		</tr>
+
+
+</table>
+
+</fieldset>
+
+
+</fieldset>
+      
+</div>
+</div>	
+  
+<div id="diagnosis">
+<fieldset>
+<legend>Investigations</legend>
+
+
+<label>Type&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+
+<select >
+<option>Select One</option><option>Pharmacy</option><option>Radiology</option>
+</select>
+</br></br>
+
+
+<label>Add Type of Test </label>
+
+<select >
+<option>Select One</option><
+</select>
+</br></br>
+
+
+<label>Added Investigations </label>
+<div>   </div></br>
+
+
+</fieldset>
+<fieldset>
+<legend>Treatment Plan</legend>
+
+<label>Type&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+
+<select >
+<option>Select One</option><option>Injections</option><option>Prescription</option>
+</select>
+</br></br>
+
+
+<label>Add Type &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+
+<select >
+<option>Select One</option><
+</select>
+</br></br>
+
+
+<label>Added Treatments </label>
+<div>   </div></br>
+
+
+
+</fieldset>
+
+<label>Follow Up Date</label>
+<input size="10" type="text" name="followUpDate" id="followUpDate" /></br></br>
+
+<label>Assesment &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+<textarea rows="4" cols="30" id="assessment" name="assessment">  </textarea>
+
+</div>
+
+ 
+
+<input id="submit" type="submit" value="Submit"><input id="reset" type="reset" value="Reset">
+</form>
+
+
+</div>
+</br></br>
+<div id="output" class="ui-widget">
+  <div class="ui-widget-header ui-corner-top">
+    <h4>Output</h2></div>
+  <div id="content" class="ui-widget-content ui-corner-bottom">
+  
+ </div>
+ </div>

@@ -1,0 +1,150 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>AfricMed | Modern Record System Application</title>
+
+
+<link type="text/css" href="js/jqueryui/css/trontastic/jquery-ui-1.8.11.custom.css" rel="stylesheet" />
+<link type="text/css" href="css/validationEngine.jquery.css" rel="stylesheet" />
+
+<script type="text/javascript" src="js/jquery-1.5.2.js"></script>
+<script type="text/javascript" src="js/jqueryui/js/jquery-ui-1.8.11.custom.min.js"></script>
+<script type="text/javascript" src="js/ui.tabs.closable.min.js"></script>
+<script type="text/javascript" src="js/jqueryui/development-bundle/ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="js/jqueryui/development-bundle/ui/jquery.ui.accordion.js"></script>
+<script type="text/javascript" src="js/jquery.layout-latest.js"></script>
+<script type="text/javascript" src="js/jqueryui/development-bundle/ui/jquery.ui.datepicker.js"></script>
+<script type="text/javascript" src="js/jquery.validationEngine.js"></script>
+<script type="text/javascript" src="js/jquery.validationEngine-en.js"></script>
+<script type="text/javascript" src="js/plugins/DataTables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
+
+<style type="text/css">
+	#myAccordion .ui-accordion-content { padding: 6 0 15 15; }
+
+	label { color:ffffff;}
+
+</style >
+<script>
+    $(document).ready(function () {
+        $('body').layout({ applyDefaultStyles: true });
+	$("#myAccordion").accordion({
+		animated: "bounceslide"
+	});
+	var mainTab = $("#contentTab").tabs({closable:true});
+	$("#checkup").click(function(){
+	
+	mainTab.tabs('add','checkup.php','CheckUp');
+	var newIndex = mainTab.tabs("length") - 1;
+	mainTab.tabs("select", newIndex);
+	});
+
+	$("#registration").click(function(){
+	
+	mainTab.tabs('add','reception.php','Registration');
+	var newIndex = mainTab.tabs("length") - 1;
+	mainTab.tabs("select", newIndex);
+	});
+	
+	$("#visits").click(function(){
+	
+	mainTab.tabs('add','visits.php','Visits');
+	var newIndex = mainTab.tabs("length") - 1;
+	mainTab.tabs("select", newIndex);
+	});
+
+	$("#search").click(function(){
+		
+		mainTab.tabs('add','search.php','Search');
+		var newIndex = mainTab.tabs("length") - 1;
+		mainTab.tabs("select", newIndex);
+		});
+	
+    });
+</script>
+
+</head>
+
+
+<body>
+
+<div class="ui-layout-center">
+
+<div class="ui-widget">
+  <div class="ui-widget-header ui-corner-top">
+    <h4>Main Content</h2></div>
+  <div class="ui-widget-content ui-corner-bottom">
+<div id="contentTab">
+  <ul>
+    <li><a href="#a">Main</a></li>
+   
+  </ul>
+  <div id="a">Welcome to AfriMed Medical Record System</br></div>
+  
+	</div>
+
+   </div>
+</div>
+
+
+</div>
+<div class="ui-layout-north">
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">
+    <h4>AfriMed Medical Software</h2></div>
+
+
+</div>
+</div>
+<div class="ui-layout-west">
+
+<div class="ui-widget">
+  <div class="ui-widget-header ui-corner-top">
+    <h4>Navigation</h2></div>
+  <div class="ui-widget-content ui-corner-bottom">
+   
+<div id="myAccordion">
+  <h2><a href="#">Reception</a></h2>
+  
+  	<div class="ui-widget">
+  <div class="ui-state-default  ">
+    <a href="#" id="registration">Registration</a></div>
+  <div class="ui-state-default ">
+    <a href="#" id="checkup">Checkup</a></div>
+    <div class="ui-state-default ">
+    <a href="#" id="">Consultation</a></div>
+    <div class="ui-state-default ">
+    <a href="#">Payments</a></div>
+	<div class="ui-state-default ">
+    <a href="#" id="visits">Visits</a></div>
+    <div class="ui-state-default ">
+    <a href="#" id="search">Search</a></div>
+	</div>
+  	
+ 
+  <h2><a href="#">Pharmacy</a></h2>
+  <div>pharmacy.</div>
+  <h2><a href="#">Laboratory</a></h2>
+  <div>laboratory.</div>
+<h2><a href="#">Labour</a></h2>
+  <div>Labour.</div>
+<h2><a href="#">Theater</a></h2>
+  <div>Theater.</div>
+<h2><a href="#">Finance</a></h2>
+  <div>Finance.</div>
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+</body>
+</html>
+
+
+

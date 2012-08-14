@@ -1,0 +1,43 @@
+<?php require_once 'includes/connect.php';?>
+
+<?php
+function dbAll($sql){
+	$arr=array();
+	$r=mysql_query($sql) or die(mysql_error());
+	while($t=mysql_fetch_array($r)){
+		$arr[]=$t;
+	}
+	return $arr;
+}
+
+//count existing records
+$r=mysql_query("select count(patientNr) as pn from patient_record") or die(mysql_error());;
+$row=mysql_fetch_array($r);
+$total=$row['pn'];
+
+//start displaying records
+echo '{"total records": '. $total.',"TotalDisplayRecords": '. $total.',"aaData": [';
+
+$Fetch=dbAll("select patientNr, fname,lname,date,phone1 from patient_record order by fname,lname limit 0,$total");
+$start=0;
+//echo "{";
+	//$response=array("ITotalRecords" => $total, "iTotalDisplayRecords" => $total, "aaData"=>$Fetch);
+	//echo json_encode($response);
+
+$count=0;
+$rrr=count($Fetch);
+//echo $rrr;
+foreach ($Fetch as $record){
+	 echo '[';
+	//$response=array("ITotalRecords" => $total, "iTotalDisplayRecords" => $total, "aaData"=>$Fetch);
+	//echo json_encode($record);
+	echo'"',$record['patientNr'],'", "',$record['fname'],'","',$record['lname'],'","',$record['date'],'","',$record['phone1'],'';
+	$count++;
+	if($rrr!=$count){
+		echo '"],';
+	}else{
+	echo '"]';
+	}
+}
+echo ']}';
+?>
