@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implementation of hook_preprocess_hook().
+ *
+ */
+function ppcustom_currency_block_preprocess_page(&$variables) {
+  drupal_add_js(drupal_get_path('module', 'ajax_ppcustom_currency_form') .
+    '/ajax_ppcustom_currency_form.js', 'theme');
+  return TRUE;
+}  

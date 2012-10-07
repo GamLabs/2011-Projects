@@ -1,0 +1,5 @@
+name = Currency Block
+description = This module provides currency exchange rates in a block.
+dependencies[] = currency_api
+package = zPP Modules
+core = 6.x

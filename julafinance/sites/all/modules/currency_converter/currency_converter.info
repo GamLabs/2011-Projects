@@ -1,0 +1,11 @@
+; $Id: currency_converter.info,v 1.1 2011/02/13 13:00:06 spleshka Exp $
+name = Currency Converter
+description = Currency Converter by <a href = "http://www.internet-marketing.by/">Internet-Marketing</a>
+package = "Internet-Marketing"
+core = 6.x
+; Information added by drupal.org packaging script on 2011-02-15
+version = "6.x-1.1"
+core = "6.x"
+project = "currency_converter"
+datestamp = "1297789576"
+

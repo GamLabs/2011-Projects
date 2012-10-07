@@ -1,0 +1,5 @@
+name = Ajax plugin - ppcustom currency form
+description = Enhances AJAX functionality for ppcustom currency form.
+package = Ajax
+dependencies[] = ajax
+core = 6.x

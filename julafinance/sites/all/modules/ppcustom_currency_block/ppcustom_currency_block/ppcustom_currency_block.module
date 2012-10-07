@@ -1,0 +1,131 @@
+<?php
+
+/**
+* Implementation of hook_block.
+*/
+function ppcustom_currency_block_block($op, $delta = 0) {
+  switch ($op) {
+    case 'list':
+      $block = array();
+      $block[0]['info'] = t('Currency exchange block');
+      return $block;
+
+    case 'view':
+      switch($delta) {
+        case 0:
+          $block['subject'] = t('Currency exchange');
+          $block['content'] = drupal_get_form('ppcustom_currency_block_form');
+          break;
+      }
+      return $block;
+  }
+}
+
+/**
+* Custom function for currency block form.
+*/
+function ppcustom_currency_block_form() {
+  $amount = $_SESSION['currency_amount'] ? $_SESSION['currency_amount'] : 100;
+  $from   = $_SESSION['currency_from']   ? $_SESSION['currency_from'] : variable_get('currency_default_from', 'USD'); 
+  $to     = $_SESSION['currency_to']     ? $_SESSION['currency_to']   : variable_get('currency_default_to', 'CAD'); 
+  // $result = $_SESSION['result'] ? $_SESSION['result'] : t('<p>Enter a price and select a currency from the dropdown menu.</p>');
+
+  $form['currency_amount'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Amount'),
+    '#default_value' => $amount,
+    '#size'          => 9,
+    '#maxlength'     => 9, 
+    '#description'   => t('Amount to convert'), 
+  );
+
+  $form['output'] = array(
+    '#type'          => 'markup',
+    '#value'         => '<div id="results"></div>'
+  );
+  
+  $form['currency_from'] = array(
+    '#type'          => 'select',
+    '#title'         => t('From'),
+    '#default_value' => $from,
+    '#options'       => currency_api_get_list(),    
+  );
+  
+  $form['currency_to'] = array(
+    '#type'          => 'select',
+    '#title'         => t('To'),
+    '#default_value' => $to,
+    '#options'       => currency_api_get_list(),    
+  );
+       
+  $form['submit'] = array(
+    '#type'          => 'submit',
+    '#value'         => t('Convert'),
+  );
+
+  // $form['#validate']['ppcustom_currency_block_form_validate'] = array();
+  return $form;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function ppcustom_currency_block_form_alter(&$form, $form_state, $form_id) {
+  switch ($form_id) {
+    case 'ppcustom_currency_block_form':
+			unset($form['currency_amount']['#description']);
+		  $form['#submit'][] = 'ppcustom_currency_block_form_submit';
+			$form['#ajax'] = array('enabled' => TRUE);
+			break;
+  }
+}
+
+/**
+* Custom handler validate function for currency_block_form().
+*/
+function ppcustom_currency_block_form_validate($form, &$form_state) {
+  if (!$form_state['values']['currency_amount']) {
+    form_set_error('', t('Amount is required.'));
+  }
+
+  if (!is_numeric($form_state['values']['currency_amount'])) {
+    form_set_error('', t('Invalid Amount. Please enter a valid numeric amount.'));
+  }
+}
+
+/**
+* Custom handler submit function for currency_block_form().
+*/
+function ppcustom_currency_block_form_submit(&$form, &$form_state) {
+  // $from	= 'USD';
+  $from   = $form_state['values']['currency_from'];
+  $to     = $form_state['values']['currency_to'];
+  $amount = $form_state['values']['currency_amount'];
+  $url    = 'http://finance.yahoo.com/q?s=' . $from . $to . '=X';
+
+  $ret = currency_api_convert($from, $to, $amount);
+  if ($ret['status'] == FALSE) { 
+    drupal_set_message(t('currency exchange error: ') . $ret['message'], 'block');
+  }
+  else {
+    $result .= '<p>';
+    $result .=  t('@amount @from = @value @to', array(
+      '@amount' => $amount,
+      '@from' => currency_api_get_desc($from),
+      '@value' => $ret['value'],
+      '@to' => currency_api_get_desc($to)));
+    $result .= '</p><p>';
+    $result .= l(t('Exchange rate history and chart'), $url, array('attributes' => array('target' => '_blank')));
+    $result .= '</p>';
+  }
+	$form['#ajax']['form_submitted'] = 1;
+	$form['#ajax']['result'] = $ret['value'];
+	$form['#ajax']['to'] = currency_api_get_desc($to);
+
+  // Save the last used values in the session
+  $_SESSION['currency_amount'] = $amount;
+  $_SESSION['currency_from']   = $from;
+  $_SESSION['currency_to']     = $to;
+  // $_SESSION['result'] = $result;
+	// drupal_set_message(filter_xss($result));
+}
